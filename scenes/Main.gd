@@ -1,6 +1,7 @@
 class_name Main extends Control
 
 onready var n_AnimationPlayer := $AnimationPlayer
+onready var n_MusicPlayer := $AudioStreamPlayer
 
 onready var n_SidePanel := $MarginContainer/SidePanelControl
 onready var n_ItemList := $MarginContainer/SidePanelControl/MarginContainer/ItemList
