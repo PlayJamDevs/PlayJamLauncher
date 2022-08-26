@@ -32,12 +32,16 @@ func process(delta) -> void:
 	
 	owner.n_MusicPlayer.stop()
 	
+	var args := [
+		Globals.language
+	]
+	
 	if Globals.debug_mode:
-		_exit_code = OS.execute(_file, [], true)
+		_exit_code = OS.execute(_file, args, true)
 #		_exit_code = EXIT_CODES.WIN
 		print_debug("exit code: " + str(_exit_code))
 	else:
-		_exit_code = OS.execute(_file, [], true)
+		_exit_code = OS.execute(_file, args, true)
 		
 	owner.n_MusicPlayer.play()
 		

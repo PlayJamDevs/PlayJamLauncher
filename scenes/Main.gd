@@ -45,8 +45,9 @@ func _ready():
 	if _err != OK:
 		save_settings()
 	else:
-		Globals.play_mode = config.get_value("Globals","play_mode")
-		Globals.max_player_lives = config.get_value("Globals","player_lives")
+		Globals.play_mode = config.get_value("Globals","play_mode", Globals.play_mode)
+		Globals.max_player_lives = config.get_value("Globals","player_lives", Globals.max_player_lives)
+		Globals.language = config.get_value("Globals","language", Globals.language)
 		print_debug("config loaded!")
 	
 	$CanvasLayer/Control/LabelMode.visible = Globals.debug_mode
@@ -60,6 +61,7 @@ func _ready():
 func save_settings() -> void:
 	config.set_value("Globals", "play_mode", Globals.play_mode)
 	config.set_value("Globals", "player_lives", Globals.max_player_lives)
+	config.set_value("Globals", "language", Globals.language)
 	config.save("config.cfg")
 	
 func _create_game_dir() -> Directory:

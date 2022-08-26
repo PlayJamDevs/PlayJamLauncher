@@ -18,6 +18,7 @@ var debug_mode := true
 
 var max_player_lives := 3
 var play_mode = PLAY_MODE.SEAMLESS
+var language = "ES"
 
 var current_player : PlayerScore
 
