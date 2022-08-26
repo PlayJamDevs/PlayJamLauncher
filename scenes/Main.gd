@@ -65,22 +65,26 @@ func save_settings() -> void:
 	config.save("config.cfg")
 	
 func _create_game_dir() -> Directory:
-	var _path
+	var _path : String
 	
 	if OS.has_feature("standalone"):
-		_path = OS.get_executable_path().get_base_dir() + "/.games"
+		_path =  OS.get_executable_path().get_base_dir() + "/.games"
+#		_path = OS.get_executable_path().get_base_dir() + "/.games/"
 		print_debug("RELEASE MODE")
 	else:
 		Globals.debug_mode = true
-		_path = OS.get_executable_path().get_base_dir() + "/PlayJamLauncher/.games" # test path
+		_path = ProjectSettings.globalize_path("res://.games")
+#		_path = OS.get_executable_path().get_base_dir() + "/PlayJamLauncher/.games" # test path
 		print_debug("DEBUG MODE")
 		
 	var _dir_list := Directory.new()
 	
 	if _dir_list.open(_path) != OK:
-		_dir_list.make_dir(_path)
-		print_debug("No se encontró el directorio de juegos. Será creado.")
-		return _create_game_dir()
+		
+		if _dir_list.make_dir_recursive(_path) != OK:		
+			print_debug("Error al abrir el directorio {0}.".format({
+				0: _path
+			}))	
 	
 	return _dir_list
 
@@ -170,7 +174,7 @@ func _on_update_player_scores() -> void:
 
 func _on_player_lost_life() -> void:
 	Globals.current_player.lives -= 1
-	update_player_info()	
+	update_player_info()
 
 func _sort_scores() -> void:
 	var _children = n_PlayerScoresList.get_children()
