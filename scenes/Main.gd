@@ -98,8 +98,13 @@ func find_game(_path):
 	while _file != "":
 		if _dir.current_is_dir():
 			_file = find_game(_dir.get_current_dir() + "/" + _file)
-			
-		if !(_file.ends_with("exe")):
+		
+		var is_executable = (
+			(OS.has_feature("Windows") and _file.ends_with(".exe")) or
+			(OS.has_feature("X11") and OS.execute("test", ["-x", _dir.get_current_dir() + "/" + _file]) == 0)
+		)
+		
+		if !(is_executable):
 			_file = _dir.get_next()
 			continue
 			
@@ -107,6 +112,7 @@ func find_game(_path):
 	
 	_dir.list_dir_end()
 	return _file
+
 
 func _populate_games(_dir_list : Directory) -> void:
 	_dir_list.list_dir_begin(true, true)
