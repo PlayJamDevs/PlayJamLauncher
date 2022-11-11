@@ -1,6 +1,5 @@
 extends MenuState
 
-var _anim_p : AnimationPlayer
 var _score_counter := 0
 
 func _init(_owner).(_owner):

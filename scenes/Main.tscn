@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/playjam_logo_transparent.png" type="Texture" id=1]
 [ext_resource path="res://assets/res/global_theme.tres" type="Theme" id=2]
@@ -9,45 +9,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/res/fonts/font_title_48px.tres" type="DynamicFont" id=8]
 [ext_resource path="res://assets/music/music.mp3" type="AudioStream" id=9]
-
-[sub_resource type="Shader" id=5]
-code = "shader_type canvas_item;
-
-uniform float battery : hint_range(0.0,1.0) = 1.0;
-uniform float anchor : hint_range(-1.0,1.0) = -0.5;
-uniform float speed_scale : hint_range(1.0, 10.0) = 1.0;
-uniform float fov : hint_range(0.01, 1.0) = 0.2;
-uniform vec4 background_color : hint_color = vec4(0.0, 0.1, 0.2, 1.0);
-uniform vec4 grid_color : hint_color = vec4(1.0, 0.5, 1.0, 1.0);
-
-float grid(vec2 uv, float batt) {
-    vec2 size = vec2(uv.y, uv.y * uv.y * 0.2) * 0.01;
-    uv += vec2(0.0, TIME * speed_scale * (batt + 0.05));
-    uv = abs(fract(uv) - 0.5);
- 	vec2 lines = smoothstep(size, vec2(0.0), uv);
- 	lines += smoothstep(size * 5.0, vec2(0.0), uv) * 0.4 * batt;
-    return clamp(lines.x + lines.y, 0.0, 3.0);
-}
-
-void fragment() {
-	vec2 uv = UV;
-	vec4 col = background_color;
-    uv.y = 3.0 / (abs(uv.y + fov) + 0.05);
-	uv.x += anchor;
-    uv.x *= uv.y * 1.0;
-    float gridVal = grid(uv, battery);
-    col = mix(background_color, grid_color, gridVal);
-	COLOR = col;
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
-shader_param/battery = 1.0
-shader_param/anchor = -0.5
-shader_param/speed_scale = 1.0
-shader_param/fov = 0.05
-shader_param/background_color = Color( 0.027451, 0.0117647, 0.14902, 1 )
-shader_param/grid_color = Color( 0.313726, 0, 0.470588, 1 )
+[ext_resource path="res://assets/res/shader_retro.tres" type="Material" id=10]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -976,7 +938,7 @@ tracks/12/keys = {
 
 [sub_resource type="Animation" id=12]
 resource_name = "lost_life"
-length = 1.5
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("PressStartContainer:visible")
 tracks/0/interp = 1
@@ -1232,7 +1194,7 @@ tracks/20/keys = {
 
 [sub_resource type="Animation" id=13]
 resource_name = "scored"
-length = 2.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("PressStartContainer:visible")
 tracks/0/interp = 1
@@ -1475,7 +1437,7 @@ tracks/19/keys = {
 }
 
 [sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.0980392, 0.0980392, 0.0980392, 0.392157 )
+bg_color = Color( 0, 0, 0, 0.705882 )
 expand_margin_top = 2.0
 
 [node name="Main" type="Control"]
@@ -1496,7 +1458,7 @@ stretch_mode = 6
 
 [node name="BackgroundColor" type="ColorRect" parent="BackgroundTexture"]
 show_behind_parent = true
-material = SubResource( 6 )
+material = ExtResource( 10 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.027451, 0.0117647, 0.14902, 1 )
@@ -1537,7 +1499,8 @@ __meta__ = {
 [node name="SidePanelControl" type="Panel" parent="MarginContainer"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
-margin_bottom = 270.0
+margin_right = 759.0
+margin_bottom = 810.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1547,21 +1510,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_bottom = 270.0
+margin_right = 759.0
+margin_bottom = 810.0
 same_column_width = true
 
 [node name="PressStartContainer" type="CenterContainer" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -104.0
-margin_bottom = -104.0
+margin_top = 216.0
 
 [node name="LabelPressStart" type="Label" parent="PressStartContainer"]
 margin_left = 31.0
-margin_top = 127.0
+margin_top = 19.0
 margin_right = 449.0
-margin_bottom = 142.0
+margin_bottom = 34.0
 custom_fonts/font = ExtResource( 4 )
 text = "PRESIONA CUALQUIER TECLA PARA COMENZAR"
 align = 1
@@ -1623,7 +1586,7 @@ anims/intro = SubResource( 2 )
 anims/lost_life = SubResource( 12 )
 anims/scored = SubResource( 13 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 autoplay = true
 
@@ -1635,12 +1598,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PopUpControl" type="Control" parent="CanvasLayer/Control"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AcceptDialog" type="AcceptDialog" parent="CanvasLayer/Control/PopUpControl"]
 anchor_left = 0.329102
@@ -1662,6 +1631,9 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CCPlayerName"]
 margin_left = 194.0
@@ -1709,15 +1681,15 @@ margin_bottom = 24.0
 
 [node name="ScoreBoardContainer" type="Panel" parent="CanvasLayer/Control"]
 visible = false
-anchor_left = 0.666667
-anchor_top = 0.474074
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -8.00018
-margin_top = -7.99998
-margin_right = -8.00018
-margin_bottom = -8.0
+anchor_left = 0.65
+anchor_top = 0.444444
+anchor_right = 0.983333
+anchor_bottom = 0.97037
 custom_styles/panel = SubResource( 14 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ScoreBoardContainer"]
 margin_right = 159.0
@@ -1755,6 +1727,9 @@ margin_bottom = 10.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LabelPlayerInfo" type="Label" parent="CanvasLayer/Control/CenterContainer"]
 margin_left = 227.0

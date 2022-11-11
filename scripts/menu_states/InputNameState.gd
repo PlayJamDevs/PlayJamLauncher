@@ -17,7 +17,8 @@ func enter_state(meta := {}) -> void:
 	_input_name_idx = 0
 	_input_letter = 0
 	
-	owner.n_AnimationPlayer.play("input_name")
+	_anim_p = owner.n_AnimationPlayer
+	_anim_p.play("input_name")
 
 func exit_state() -> void:
 	var _new_player = PlayerScore.instance()
@@ -32,13 +33,18 @@ func input(event) -> void:
 		owner.n_InputNameLabels[_input_name_idx].deselect()
 		_input_name_idx = wrapi(_input_name_idx - 1, 0, 3)
 		owner.n_InputNameLabels[_input_name_idx].select()
+		AudioManager.play(AudioManager.UI_BEEP)
 	elif Input.is_action_just_pressed("ui_right"):
 		owner.n_InputNameLabels[_input_name_idx].deselect()
 		_input_name_idx = wrapi(_input_name_idx + 1, 0, 3)
 		owner.n_InputNameLabels[_input_name_idx].select()
+		AudioManager.play(AudioManager.UI_BEEP)
 	elif Input.is_action_just_pressed("ui_up"):
 		owner.n_InputNameLabels[_input_name_idx]._scancode += 1
+		AudioManager.play(AudioManager.UI_BEEP, 1.02)
 	elif Input.is_action_just_pressed("ui_down"):
 		owner.n_InputNameLabels[_input_name_idx]._scancode -= 1
+		AudioManager.play(AudioManager.UI_BEEP, 1.01)
 	elif Input.is_action_just_pressed("ui_accept"):
 		owner.set_state(Global.MENU_STATE.GAME_LIST_EXPAND)
+		AudioManager.play(AudioManager.UI_COMPLETE)

@@ -38,7 +38,10 @@ func process(delta) -> void:
 	
 	if Globals.debug_mode:
 		_exit_code = OS.execute(_file, args, true)
-#		_exit_code = EXIT_CODES.WIN
+#		if .35 > randf():
+#			_exit_code = EXIT_CODES.WIN
+#		else:
+#			_exit_code = EXIT_CODES.LOSE
 		print_debug("exit code: " + str(_exit_code))
 	else:
 		_exit_code = OS.execute(_file, args, true)
