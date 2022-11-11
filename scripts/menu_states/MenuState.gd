@@ -1,6 +1,7 @@
 class_name MenuState
 
-var owner
+var owner : Control
+var _anim_p : AnimationPlayer
 
 func _init(_owner):
 	owner = _owner

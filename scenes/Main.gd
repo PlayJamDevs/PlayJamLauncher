@@ -1,7 +1,7 @@
 class_name Main extends Control
 
 onready var n_AnimationPlayer := $AnimationPlayer
-onready var n_MusicPlayer := $AudioStreamPlayer
+onready var n_MusicPlayer := $MusicLoop
 
 onready var n_SidePanel := $MarginContainer/SidePanelControl
 onready var n_ItemList := $MarginContainer/SidePanelControl/MarginContainer/ItemList
@@ -39,6 +39,7 @@ var config := ConfigFile.new()
 
 func _ready():
 	randomize()
+#	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
 	var _err = config.load(Globals.CONFIG_FILENAME)
 	
@@ -50,7 +51,7 @@ func _ready():
 		Globals.language = config.get_value("Globals","language", Globals.language)
 		print_debug("config loaded!")
 	
-	$CanvasLayer/Control/LabelMode.visible = Globals.debug_mode
+	$CanvasLayer/Control/LabelMode.visible = OS.is_debug_build()
 		
 	var _dir_list := _create_game_dir()
 	_populate_games(_dir_list)
@@ -81,10 +82,10 @@ func _create_game_dir() -> Directory:
 	
 	if _dir_list.open(_path) != OK:
 		
-		if _dir_list.make_dir_recursive(_path) != OK:		
+		if _dir_list.make_dir_recursive(_path) != OK:
 			print_debug("Error al abrir el directorio {0}.".format({
 				0: _path
-			}))	
+			}))
 	
 	return _dir_list
 
@@ -171,8 +172,12 @@ func set_player_lives(_value) -> void:
 	update_player_info()
 
 func update_player_info() -> void:
-	n_LabelPlayerName.text = Globals.current_player.get_name()
-	n_LabelPlayerLives.text = "VIDAS: {0}".format({0:String(Globals.current_player.lives)})
+	n_LabelPlayerName.text = "Jugador actual: {0}".format({
+		0:Globals.current_player.get_name()
+	})
+	n_LabelPlayerLives.text = "Vidas: {0}".format({
+		0:String(Globals.current_player.lives)
+	})
 	
 func _on_update_player_scores() -> void:
 	Globals.current_player.record += 500

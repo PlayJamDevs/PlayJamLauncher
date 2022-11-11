@@ -12,3 +12,4 @@ func input(event) -> void:
 		
 	if Input.is_key_pressed(KEY_ENTER):
 		owner.set_state(Globals.MENU_STATE.INPUT_NAME)
+		AudioManager.play(AudioManager.UI_INTRO)

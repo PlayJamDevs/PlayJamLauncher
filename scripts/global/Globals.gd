@@ -60,7 +60,8 @@ func _ready():
 	for i in MAX_PLAYERS:
 		var color = Color(randf() * i, randf() * 1, randf() * 1)
 		PlayerColors.append(color)
+	print_debug(PlayerColors.size())
 		
 func getNewPlayerColor() -> Color:
-	color_index = wrapf(color_index + 1, 0, MAX_PLAYERS)
+	color_index = wrapi(color_index + 1, 0, MAX_PLAYERS)
 	return PlayerColors[color_index]
