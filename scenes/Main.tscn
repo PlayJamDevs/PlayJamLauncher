@@ -1496,7 +1496,6 @@ __meta__ = {
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
 margin_right = 151.0
-margin_bottom = 270.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1506,7 +1505,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_right = 151.0
 margin_bottom = 270.0
 same_column_width = true
 
