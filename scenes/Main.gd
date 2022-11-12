@@ -148,6 +148,9 @@ func _process(delta):
 	
 func _input(event : InputEvent):
 	current_state.input(event)
+	
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
 
 func set_state(_new_state : int, args := {}) -> void:
 	if current_state != null:

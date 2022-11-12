@@ -1499,8 +1499,7 @@ __meta__ = {
 [node name="SidePanelControl" type="Panel" parent="MarginContainer"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 759.0
-margin_bottom = 810.0
+margin_bottom = 270.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1510,8 +1509,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_right = 759.0
-margin_bottom = 810.0
+margin_bottom = 270.0
 same_column_width = true
 
 [node name="PressStartContainer" type="CenterContainer" parent="."]
