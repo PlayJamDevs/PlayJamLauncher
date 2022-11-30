@@ -15,6 +15,8 @@ func enter_state(meta := {}) -> void:
 	_anim_p.connect("animation_started", self, "_on_animation_started")
 	_anim_p.connect("animation_finished", self, "_on_animation_finished")
 	_anim_p.play("scored")
+	
+	AudioManager.play(AudioManager.UI_WIN)
 
 func exit_state() -> void:
 	_anim_p.disconnect("animation_finished", self, "_on_animation_finished")

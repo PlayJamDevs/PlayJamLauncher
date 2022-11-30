@@ -12,6 +12,7 @@ onready var n_PressStartContainer := $PressStartContainer
 onready var n_LabelPlayerName := $PlayerDataContainer/VBoxContainer/LabelPlayerName
 onready var n_LabelPlayerLives := $PlayerDataContainer/VBoxContainer/LabelPlayerLives
 
+onready var n_PlayerNameWarning := $CanvasLayer/Control/CCPlayerName/VBox/LabelWarning
 onready var n_PlayerNameInput := $CanvasLayer/Control/CCPlayerName
 onready var n_InputNameLabels := [
 	$CanvasLayer/Control/CCPlayerName/VBox/CC/GC/LetterInput1,
@@ -63,7 +64,7 @@ func save_settings() -> void:
 	config.set_value("Globals", "play_mode", Globals.play_mode)
 	config.set_value("Globals", "player_lives", Globals.max_player_lives)
 	config.set_value("Globals", "language", Globals.language)
-	config.save("config.cfg")
+	config.save(Global.CONFIG_FILENAME)
 	
 func _create_game_dir() -> Directory:
 	var _path : String
@@ -72,6 +73,7 @@ func _create_game_dir() -> Directory:
 		_path =  OS.get_executable_path().get_base_dir() + "/.games"
 #		_path = OS.get_executable_path().get_base_dir() + "/.games/"
 		print_debug("RELEASE MODE")
+		print_debug(_path)
 	else:
 		Globals.debug_mode = true
 		_path = ProjectSettings.globalize_path("res://.games")
@@ -105,15 +107,17 @@ func find_game(_path):
 			(OS.has_feature("X11") and OS.execute("test", ["-x", _dir.get_current_dir() + "/" + _file]) == 0)
 		)
 		
-		if !(is_executable):
-			_file = _dir.get_next()
-			continue
+		if is_executable:
+			break
 			
-		break
+		_file = _dir.get_next()			
 	
 	_dir.list_dir_end()
+	
+	if _file.empty():
+		return null
+	
 	return _file
-
 
 func _populate_games(_dir_list : Directory) -> void:
 	_dir_list.list_dir_begin(true, true)
@@ -126,14 +130,15 @@ func _populate_games(_dir_list : Directory) -> void:
 		if _dir_list.current_is_dir():
 			_file = find_game(_subpath)
 		
-		n_ItemList.add_item(_file.trim_suffix(".exe"))
-		n_ItemList.set_item_metadata(_item_idx, {
-			Global.GAME_METADATA.PATH: _subpath,
-			Global.GAME_METADATA.FILENAME: _file
-		})
+		if _file != null:
+			n_ItemList.add_item(_file.trim_suffix(".exe"))
+			n_ItemList.set_item_metadata(_item_idx, {
+				Global.GAME_METADATA.PATH: _subpath,
+				Global.GAME_METADATA.FILENAME: _file
+			})
+			_item_idx += 1
 		
 		_file = _dir_list.get_next()
-		_item_idx += 1
 			
 	if n_ItemList.get_item_count() == 0:
 		n_WarningDialog.dialog_text = "No se encontraron juegos!"
@@ -169,6 +174,15 @@ func add_new_player(_player) -> void:
 	Globals.current_player = _player
 	n_PlayerScoresList.add_child(_player)
 	_sort_scores()
+
+func check_player_exists(_player_name : String) -> bool:
+	var _player_list = n_PlayerScoresList.get_children()
+	
+	for _player_score in _player_list:
+		if _player_score.get_name().to_lower() == _player_name.to_lower():
+			return true
+	
+	return false
 	
 func set_player_lives(_value) -> void:
 	Globals.current_player.lives = _value

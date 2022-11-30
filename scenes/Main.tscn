@@ -308,6 +308,18 @@ tracks/22/keys = {
 "update": 0,
 "values": [ Vector2( 0, 270 ) ]
 }
+tracks/23/type = "value"
+tracks/23/path = NodePath("CanvasLayer/Control/CCPlayerName/VBox/LabelWarning:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "game_list_expand"
@@ -370,7 +382,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 270 ), Vector2( 180, 270 ) ]
+"values": [ Vector2( 0, 270 ), Vector2( 640, 1080 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("MarginContainer/SidePanelControl:visible")
@@ -542,7 +554,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 180, 270 ) ]
+"values": [ Vector2( 640, 1080 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("MarginContainer/SidePanelControl:visible")
@@ -774,6 +786,18 @@ tracks/9/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.2, 0.05 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("CanvasLayer/Control/CCPlayerName/VBox/LabelWarning:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -1484,9 +1508,10 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false
-anchor_right = 0.633333
+anchor_right = 0.333333
 anchor_bottom = 1.0
-margin_right = -304.0
+margin_right = -640.0
+margin_bottom = -810.0
 custom_constants/margin_right = 0
 __meta__ = {
 "_edit_use_anchors_": true
@@ -1495,7 +1520,8 @@ __meta__ = {
 [node name="SidePanelControl" type="Panel" parent="MarginContainer"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 151.0
+margin_right = 1460.0
+margin_bottom = 2430.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1505,30 +1531,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_bottom = 270.0
+margin_right = 1460.0
+margin_bottom = 2430.0
 same_column_width = true
 
 [node name="PressStartContainer" type="CenterContainer" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 216.0
 
 [node name="LabelPressStart" type="Label" parent="PressStartContainer"]
-margin_left = 31.0
-margin_top = 19.0
-margin_right = 449.0
-margin_bottom = 34.0
+margin_left = 466.0
+margin_top = 523.0
+margin_right = 1454.0
+margin_bottom = 556.0
 custom_fonts/font = ExtResource( 4 )
 text = "PRESIONA CUALQUIER TECLA PARA COMENZAR"
 align = 1
-valign = 1
 
 [node name="PlayerDataContainer" type="MarginContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-anchor_left = 0.8
+anchor_left = 0.661458
 anchor_right = 1.0
-anchor_bottom = 0.237037
+anchor_bottom = 0.109259
 custom_constants/margin_right = 2
 custom_constants/margin_top = 2
 custom_constants/margin_left = 6
@@ -1540,17 +1565,17 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerDataContainer"]
 margin_left = 6.0
 margin_top = 2.0
-margin_right = 94.0
-margin_bottom = 61.0
+margin_right = 648.0
+margin_bottom = 116.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="LabelPlayerName" type="Label" parent="PlayerDataContainer/VBoxContainer"]
-margin_top = 17.0
-margin_right = 88.0
-margin_bottom = 27.0
+margin_top = 18.0
+margin_right = 642.0
+margin_bottom = 55.0
 text = "AAA"
 align = 3
 valign = 1
@@ -1560,9 +1585,9 @@ __meta__ = {
 
 [node name="LabelPlayerLives" type="Label" parent="PlayerDataContainer/VBoxContainer"]
 self_modulate = Color( 1, 0, 0, 1 )
-margin_top = 31.0
-margin_right = 88.0
-margin_bottom = 41.0
+margin_top = 59.0
+margin_right = 642.0
+margin_bottom = 96.0
 text = "VIDAS: 0"
 align = 3
 valign = 1
@@ -1630,48 +1655,57 @@ __meta__ = {
 }
 
 [node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CCPlayerName"]
-margin_left = 194.0
-margin_top = 116.0
-margin_right = 285.0
-margin_bottom = 154.0
+margin_left = 771.0
+margin_top = 480.0
+margin_right = 1148.0
+margin_bottom = 599.0
 alignment = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/CCPlayerName/VBox"]
-margin_right = 91.0
-margin_bottom = 10.0
+margin_right = 377.0
+margin_bottom = 37.0
 text = "nuevo jugador"
 align = 1
 
 [node name="CC" type="CenterContainer" parent="CanvasLayer/Control/CCPlayerName/VBox"]
-margin_top = 14.0
-margin_right = 91.0
-margin_bottom = 38.0
+margin_top = 41.0
+margin_right = 377.0
+margin_bottom = 119.0
 
 [node name="GC" type="GridContainer" parent="CanvasLayer/Control/CCPlayerName/VBox/CC"]
-margin_left = 31.0
-margin_right = 60.0
-margin_bottom = 24.0
+margin_left = 141.0
+margin_right = 236.0
+margin_bottom = 78.0
 columns = 3
 
 [node name="LetterInput1" parent="CanvasLayer/Control/CCPlayerName/VBox/CC/GC" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 7.0
-margin_bottom = 24.0
+margin_right = 29.0
+margin_bottom = 78.0
 
 [node name="LetterInput2" parent="CanvasLayer/Control/CCPlayerName/VBox/CC/GC" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 11.0
-margin_right = 18.0
-margin_bottom = 24.0
+margin_left = 33.0
+margin_right = 62.0
+margin_bottom = 78.0
 
 [node name="LetterInput3" parent="CanvasLayer/Control/CCPlayerName/VBox/CC/GC" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 22.0
-margin_right = 29.0
-margin_bottom = 24.0
+margin_left = 66.0
+margin_right = 95.0
+margin_bottom = 78.0
+
+[node name="LabelWarning" type="Label" parent="CanvasLayer/Control/CCPlayerName/VBox"]
+visible = false
+margin_top = 123.0
+margin_right = 377.0
+margin_bottom = 160.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "YA EXISTE!"
+align = 1
 
 [node name="ScoreBoardContainer" type="Panel" parent="CanvasLayer/Control"]
 visible = false
@@ -1684,28 +1718,28 @@ __meta__ = {
 }
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ScoreBoardContainer"]
-margin_left = 12.0
-margin_top = 12.0
-margin_right = 156.0
-margin_bottom = 140.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 16.0
+margin_bottom = -15.9994
 custom_constants/separation = 8
 
 [node name="ScoreTitle" type="Label" parent="CanvasLayer/Control/ScoreBoardContainer/VBoxContainer2"]
-margin_right = 144.0
-margin_bottom = 10.0
+margin_right = 672.0
+margin_bottom = 37.0
 size_flags_vertical = 5
 text = "RANKING de JUGADORES"
 align = 1
 
 [node name="VScrollBar" type="ScrollContainer" parent="CanvasLayer/Control/ScoreBoardContainer/VBoxContainer2"]
-margin_top = 18.0
-margin_right = 144.0
-margin_bottom = 128.0
+margin_top = 45.0
+margin_right = 672.0
+margin_bottom = 568.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxPlayerScore" type="VBoxContainer" parent="CanvasLayer/Control/ScoreBoardContainer/VBoxContainer2/VScrollBar"]
-margin_right = 144.0
+margin_right = 672.0
 size_flags_horizontal = 3
 custom_constants/separation = 1
 
@@ -1726,10 +1760,10 @@ __meta__ = {
 }
 
 [node name="LabelPlayerInfo" type="Label" parent="CanvasLayer/Control/CenterContainer"]
-margin_left = 227.0
-margin_top = 126.0
-margin_right = 253.0
-margin_bottom = 143.0
+margin_left = 947.0
+margin_top = 531.0
+margin_right = 973.0
+margin_bottom = 548.0
 rect_scale = Vector2( 2, 2 )
 custom_colors/font_color = Color( 0.968627, 1, 0, 1 )
 custom_fonts/font = ExtResource( 8 )
@@ -1739,13 +1773,15 @@ valign = 1
 
 [node name="LabelMode" type="Label" parent="CanvasLayer/Control"]
 modulate = Color( 1, 1, 1, 0.156863 )
-anchor_top = 1.0
+anchor_top = 0.955556
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -22.0
 text = "DEBUG MODE"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [connection signal="item_selected" from="MarginContainer/SidePanelControl/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="confirmed" from="CanvasLayer/Control/PopUpControl/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
