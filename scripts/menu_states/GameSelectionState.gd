@@ -20,7 +20,7 @@ func enter_state(meta := {}) -> void:
 	_selected_index = 0
 	
 	if !owner.n_MusicPlayer.playing:
-		owner.n_MusicPlayer.play()	
+		owner.n_MusicPlayer.play()
 		
 	owner.n_ItemList.select(_selected_index)
 	

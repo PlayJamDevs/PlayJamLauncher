@@ -64,7 +64,7 @@ func save_settings() -> void:
 	config.set_value("Globals", "play_mode", Globals.play_mode)
 	config.set_value("Globals", "player_lives", Globals.max_player_lives)
 	config.set_value("Globals", "language", Globals.language)
-	config.save("config.cfg")
+	config.save(Global.CONFIG_FILENAME)
 	
 func _create_game_dir() -> Directory:
 	var _path : String
@@ -73,6 +73,7 @@ func _create_game_dir() -> Directory:
 		_path =  OS.get_executable_path().get_base_dir() + "/.games"
 #		_path = OS.get_executable_path().get_base_dir() + "/.games/"
 		print_debug("RELEASE MODE")
+		print_debug(_path)
 	else:
 		Globals.debug_mode = true
 		_path = ProjectSettings.globalize_path("res://.games")
@@ -106,11 +107,10 @@ func find_game(_path):
 			(OS.has_feature("X11") and OS.execute("test", ["-x", _dir.get_current_dir() + "/" + _file]) == 0)
 		)
 		
-		if !(is_executable):
-			_file = _dir.get_next()
-			continue
+		if is_executable:
+			break
 			
-		break
+		_file = _dir.get_next()			
 	
 	_dir.list_dir_end()
 	
