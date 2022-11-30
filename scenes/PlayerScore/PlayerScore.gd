@@ -9,8 +9,8 @@ func _ready():
 func get_player_id() -> int:
 	return get_index()
 	
-func equals() -> void:
-	pass
+func equals(_other) -> bool:
+	return get_name().to_lower() == _other.get_name().to_lower()
 
 func get_name() -> String:
 	return $LabelName.text

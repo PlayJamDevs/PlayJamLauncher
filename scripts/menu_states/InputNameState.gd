@@ -20,15 +20,19 @@ func enter_state(meta := {}) -> void:
 	_anim_p = owner.n_AnimationPlayer
 	_anim_p.play("input_name")
 
-func exit_state() -> void:
+func exit_state() -> void:	
 	var _new_player = PlayerScore.instance()
-	var _name = owner.n_InputNameLabels[0].get_text() + owner.n_InputNameLabels[1].get_text() + owner.n_InputNameLabels[2].get_text()
-	
+	var _name = get_new_name()
+		
 	_new_player.set_name(_name)
 	_new_player.lives = Globals.max_player_lives
 	owner.add_new_player(_new_player)
 
-func input(event : InputEvent) -> void:	
+func get_new_name() -> String:
+	var _name = owner.n_InputNameLabels[0].get_text() + owner.n_InputNameLabels[1].get_text() + owner.n_InputNameLabels[2].get_text()
+	return _name
+	
+func input(event : InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_left"):
 		owner.n_InputNameLabels[_input_name_idx].deselect()
 		_input_name_idx = wrapi(_input_name_idx - 1, 0, 3)
@@ -46,5 +50,36 @@ func input(event : InputEvent) -> void:
 		owner.n_InputNameLabels[_input_name_idx]._scancode -= 1
 		AudioManager.play(AudioManager.UI_BEEP, 1.01)
 	elif Input.is_action_just_pressed("ui_accept"):
+		
+		if check_name_warning():
+			AudioManager.play(AudioManager.UI_ERROR)
+			return
+			
+		var _name = get_new_name()
+		
+		if owner.check_player_exists(_name):
+			show_name_warning(true)
+			return
+		else:
+			show_name_warning(false)
+		
 		owner.set_state(Global.MENU_STATE.GAME_LIST_EXPAND)
 		AudioManager.play(AudioManager.UI_COMPLETE)
+	
+	if !event.is_pressed():
+		var _name = get_new_name()
+		
+		if owner.check_player_exists(_name):
+			if !check_name_warning():
+				show_name_warning(true)
+		else:
+			show_name_warning(false)
+
+func check_name_warning() -> bool:
+	return owner.n_PlayerNameWarning.visible
+	
+func show_name_warning(_show : bool) -> void:
+	owner.n_PlayerNameWarning.visible = _show
+	
+	if _show:
+		AudioManager.play(AudioManager.UI_ERROR)

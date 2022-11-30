@@ -12,6 +12,7 @@ onready var n_PressStartContainer := $PressStartContainer
 onready var n_LabelPlayerName := $PlayerDataContainer/VBoxContainer/LabelPlayerName
 onready var n_LabelPlayerLives := $PlayerDataContainer/VBoxContainer/LabelPlayerLives
 
+onready var n_PlayerNameWarning := $CanvasLayer/Control/CCPlayerName/VBox/LabelWarning
 onready var n_PlayerNameInput := $CanvasLayer/Control/CCPlayerName
 onready var n_InputNameLabels := [
 	$CanvasLayer/Control/CCPlayerName/VBox/CC/GC/LetterInput1,
@@ -173,6 +174,15 @@ func add_new_player(_player) -> void:
 	Globals.current_player = _player
 	n_PlayerScoresList.add_child(_player)
 	_sort_scores()
+
+func check_player_exists(_player_name : String) -> bool:
+	var _player_list = n_PlayerScoresList.get_children()
+	
+	for _player_score in _player_list:
+		if _player_score.get_name().to_lower() == _player_name.to_lower():
+			return true
+	
+	return false
 	
 func set_player_lives(_value) -> void:
 	Globals.current_player.lives = _value

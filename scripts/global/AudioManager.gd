@@ -6,6 +6,7 @@ const UI_CANCEL := preload("res://assets/sfx/ui_cancel.wav")
 const UI_EXECUTE := preload("res://assets/sfx/ui_execute.wav")
 const UI_BEEP := preload("res://assets/sfx/ui_beep.wav")
 const UI_COMPLETE := preload("res://assets/sfx/ui_complete.wav")
+const UI_ERROR := preload("res://assets/sfx/ui_error.wav")
 const UI_WIN := preload("res://assets/sfx/win.wav")
 const UI_LOSE := preload("res://assets/sfx/lose.wav")
 

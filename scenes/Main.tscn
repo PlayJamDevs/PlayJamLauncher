@@ -308,6 +308,18 @@ tracks/22/keys = {
 "update": 0,
 "values": [ Vector2( 0, 270 ) ]
 }
+tracks/23/type = "value"
+tracks/23/path = NodePath("CanvasLayer/Control/CCPlayerName/VBox/LabelWarning:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "game_list_expand"
@@ -774,6 +786,18 @@ tracks/9/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.2, 0.05 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("CanvasLayer/Control/CCPlayerName/VBox/LabelWarning:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -1496,8 +1520,8 @@ __meta__ = {
 [node name="SidePanelControl" type="Panel" parent="MarginContainer"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 180.0
-margin_bottom = 270.0
+margin_right = 1460.0
+margin_bottom = 2430.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1507,8 +1531,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_right = 180.0
-margin_bottom = 270.0
+margin_right = 1460.0
+margin_bottom = 2430.0
 same_column_width = true
 
 [node name="PressStartContainer" type="CenterContainer" parent="."]
@@ -1673,6 +1697,15 @@ anchor_bottom = 0.0
 margin_left = 66.0
 margin_right = 95.0
 margin_bottom = 78.0
+
+[node name="LabelWarning" type="Label" parent="CanvasLayer/Control/CCPlayerName/VBox"]
+visible = false
+margin_top = 123.0
+margin_right = 377.0
+margin_bottom = 160.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "YA EXISTE!"
+align = 1
 
 [node name="ScoreBoardContainer" type="Panel" parent="CanvasLayer/Control"]
 visible = false
