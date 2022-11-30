@@ -110,7 +110,7 @@ func find_game(_path):
 		if is_executable:
 			break
 			
-		_file = _dir.get_next()			
+		_file = _dir.get_next()
 	
 	_dir.list_dir_end()
 	
