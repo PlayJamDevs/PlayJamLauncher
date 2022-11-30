@@ -10,6 +10,6 @@ func input(event) -> void:
 	if owner.n_WarningDialog.visible:
 		return
 		
-	if Input.is_key_pressed(KEY_ENTER):
+	if Input.is_action_just_pressed("ui_accept"):
 		owner.set_state(Globals.MENU_STATE.INPUT_NAME)
 		AudioManager.play(AudioManager.UI_INTRO)

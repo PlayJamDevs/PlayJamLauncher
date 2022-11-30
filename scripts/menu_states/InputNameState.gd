@@ -28,7 +28,7 @@ func exit_state() -> void:
 	_new_player.lives = Globals.max_player_lives
 	owner.add_new_player(_new_player)
 
-func input(event) -> void:	
+func input(event : InputEvent) -> void:	
 	if Input.is_action_just_pressed("ui_left"):
 		owner.n_InputNameLabels[_input_name_idx].deselect()
 		_input_name_idx = wrapi(_input_name_idx - 1, 0, 3)

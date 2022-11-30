@@ -19,15 +19,16 @@ func enter_state(meta := {}) -> void:
 	
 	_selected_index = 0
 	
+	if !owner.n_MusicPlayer.playing:
+		owner.n_MusicPlayer.play()	
+		
 	owner.n_ItemList.select(_selected_index)
 	
 	owner._sort_scores()
 	_get_selected_thumbnail()
 	
+	
 func input(event) -> void:
-	if !(event is InputEventMouseButton) && !(event is InputEventKey):
-		return
-		
 	if _item_list.get_item_count() == 0:
 		return
 		
@@ -38,10 +39,10 @@ func input(event) -> void:
 		})
 		return
 	
-	if Input.is_action_pressed("ui_cancel"):
-		AudioManager.play(AudioManager.UI_CANCEL)
-		owner.set_state(Globals.MENU_STATE.INPUT_NAME)
-		return
+#	if Input.is_action_pressed("ui_cancel"):
+#		AudioManager.play(AudioManager.UI_CANCEL)
+#		owner.set_state(Globals.MENU_STATE.INPUT_NAME)
+#		return
 	
 	if Input.is_action_just_released("ui_up"):
 		_selected_index -= 1
@@ -49,7 +50,7 @@ func input(event) -> void:
 	elif Input.is_action_just_released("ui_down"):
 		_selected_index += 1
 		AudioManager.play(AudioManager.UI_SELECT)
-	elif event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
+	elif event is InputEventMouseButton && event.button_index == BUTTON_LEFT && event.is_pressed():
 		
 		if !_item_list.get_rect().has_point(event.position):
 			return

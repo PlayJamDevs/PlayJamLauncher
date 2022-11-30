@@ -112,8 +112,11 @@ func find_game(_path):
 		break
 	
 	_dir.list_dir_end()
+	
+	if _file.empty():
+		return null
+	
 	return _file
-
 
 func _populate_games(_dir_list : Directory) -> void:
 	_dir_list.list_dir_begin(true, true)
@@ -126,14 +129,15 @@ func _populate_games(_dir_list : Directory) -> void:
 		if _dir_list.current_is_dir():
 			_file = find_game(_subpath)
 		
-		n_ItemList.add_item(_file.trim_suffix(".exe"))
-		n_ItemList.set_item_metadata(_item_idx, {
-			Global.GAME_METADATA.PATH: _subpath,
-			Global.GAME_METADATA.FILENAME: _file
-		})
+		if _file != null:
+			n_ItemList.add_item(_file.trim_suffix(".exe"))
+			n_ItemList.set_item_metadata(_item_idx, {
+				Global.GAME_METADATA.PATH: _subpath,
+				Global.GAME_METADATA.FILENAME: _file
+			})
+			_item_idx += 1
 		
 		_file = _dir_list.get_next()
-		_item_idx += 1
 			
 	if n_ItemList.get_item_count() == 0:
 		n_WarningDialog.dialog_text = "No se encontraron juegos!"

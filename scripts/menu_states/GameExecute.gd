@@ -46,7 +46,7 @@ func process(delta) -> void:
 	else:
 		_exit_code = OS.execute(_file, args, true)
 		
-	owner.n_MusicPlayer.play()
+#	owner.n_MusicPlayer.play()
 		
 	match Globals.play_mode:
 		Globals.PLAY_MODE.SINGLE:

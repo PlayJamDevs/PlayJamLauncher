@@ -18,6 +18,8 @@ func enter_state(meta := {}) -> void:
 		owner.n_LabelPlayerInfo.text = "TE {0} {1} {2}".format({0:"QUEDAN" if _lives != 1 else "QUEDA",1:_lives,2:"VIDAS" if _lives != 1 else "VIDA"})
 	else:
 		owner.n_LabelPlayerInfo.text = "GAME OVER!"
+	
+	AudioManager.play(AudioManager.UI_LOSE)
 
 func exit_state() -> void:
 	_anim_p.disconnect("animation_started", self, "_on_animation_started")
