@@ -14,7 +14,7 @@ const MAX_PLAYERS := 250
 
 const PlayerColors := [PoolColorArray()]
 
-var debug_mode := true
+var debug_mode := false
 
 var max_player_lives := 3
 var play_mode = PLAY_MODE.SEAMLESS
