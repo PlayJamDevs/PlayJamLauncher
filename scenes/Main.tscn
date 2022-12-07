@@ -1757,9 +1757,9 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="LabelPlayerInfo" type="Label" parent="CanvasLayer/Control/CenterContainer"]
-margin_left = 922.0
+margin_left = 656.0
 margin_top = 515.0
-margin_right = 998.0
+margin_right = 1264.0
 margin_bottom = 564.0
 rect_scale = Vector2( 2, 2 )
 custom_colors/font_color = Color( 0.968627, 1, 0, 1 )
