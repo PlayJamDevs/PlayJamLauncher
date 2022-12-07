@@ -49,6 +49,7 @@ func _ready():
 	else:
 		Globals.play_mode = config.get_value("Globals","play_mode", Globals.play_mode)
 		Globals.max_player_lives = config.get_value("Globals","player_lives", Globals.max_player_lives)
+		Globals.scan_directory = config.get_value("Globals","scan_directory", Globals.scan_directory)
 		Globals.language = config.get_value("Globals","language", Globals.language)
 		print_debug("config loaded!")
 	
@@ -63,6 +64,7 @@ func _ready():
 func save_settings() -> void:
 	config.set_value("Globals", "play_mode", Globals.play_mode)
 	config.set_value("Globals", "player_lives", Globals.max_player_lives)
+	config.set_value("Globals", "scan_directory", Globals.scan_directory)
 	config.set_value("Globals", "language", Globals.language)
 	config.save(Global.CONFIG_FILENAME)
 	
@@ -73,10 +75,9 @@ func _create_game_dir() -> Directory:
 		_path =  OS.get_executable_path().get_base_dir() + "/.games"
 #		_path = OS.get_executable_path().get_base_dir() + "/.games/"
 		print_debug("RELEASE MODE")
-		print_debug(_path)
 	else:
 		Globals.debug_mode = true
-		_path = ProjectSettings.globalize_path("res://.games")
+		_path = Globals.scan_directory
 #		_path = OS.get_executable_path().get_base_dir() + "/PlayJamLauncher/.games" # test path
 		print_debug("DEBUG MODE")
 		
@@ -91,50 +92,23 @@ func _create_game_dir() -> Directory:
 	
 	return _dir_list
 
-func find_game(_path):
-	
-	var _dir := Directory.new()
-	_dir.open(_path)
-	_dir.list_dir_begin(true, true)
-	var _file  := _dir.get_next()
-	
-	while _file != "":
-		if _dir.current_is_dir():
-			_file = find_game(_dir.get_current_dir() + "/" + _file)
-		
-		var is_executable = (
-			(OS.has_feature("Windows") and _file.ends_with(".exe")) or
-			(OS.has_feature("X11") and OS.execute("test", ["-x", _dir.get_current_dir() + "/" + _file]) == 0)
-		)
-		
-		if is_executable:
-			break
-			
-		_file = _dir.get_next()
-	
-	_dir.list_dir_end()
-	
-	if _file.empty():
-		return null
-	
-	return _file
-
 func _populate_games(_dir_list : Directory) -> void:
 	_dir_list.list_dir_begin(true, true)
 	var _file  = _dir_list.get_next()
 	var _item_idx := 0
 	
 	while _file != "":
+		var _executable := ""
 		var _subpath = _dir_list.get_current_dir() + "/" + _file
 		
 		if _dir_list.current_is_dir():
-			_file = find_game(_subpath)
+			_executable = find_game_executable(_subpath)
 		
-		if _file != null:
-			n_ItemList.add_item(_file.trim_suffix(".exe"))
+		if _executable != null:
+			n_ItemList.add_item(_executable.trim_suffix(".exe"))
 			n_ItemList.set_item_metadata(_item_idx, {
 				Global.GAME_METADATA.PATH: _subpath,
-				Global.GAME_METADATA.FILENAME: _file
+				Global.GAME_METADATA.FILENAME: _executable
 			})
 			_item_idx += 1
 		
@@ -147,6 +121,27 @@ func _populate_games(_dir_list : Directory) -> void:
 		return
 	
 	n_ItemList.select(0)
+
+func find_game_executable(_path : String):
+	var _dir := Directory.new()
+	_dir.open(_path)
+	_dir.list_dir_begin(true, true)
+	var _file  := _dir.get_next()
+	
+	while _file != "":
+		if _dir.current_is_dir():
+			_file = _dir.get_next()
+			continue
+		
+		var is_executable = _file.ends_with(".exe") or (OS.has_feature("X11") and OS.execute("test", ["-x", _dir.get_current_dir() + "/" + _file]) == 0)
+		
+		if is_executable:
+			return _file
+			
+		_file = _dir.get_next()
+	
+	_dir.list_dir_end()
+	return null
 
 func _process(delta):
 	current_state.process(delta)

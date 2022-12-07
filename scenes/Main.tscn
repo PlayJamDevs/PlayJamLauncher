@@ -1510,7 +1510,7 @@ __meta__ = {
 visible = false
 anchor_right = 0.333333
 anchor_bottom = 1.0
-margin_right = -640.0
+margin_right = -639.999
 margin_bottom = -810.0
 custom_constants/margin_right = 0
 __meta__ = {
@@ -1520,8 +1520,8 @@ __meta__ = {
 [node name="SidePanelControl" type="Panel" parent="MarginContainer"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 1460.0
-margin_bottom = 2430.0
+margin_right = 152.0
+margin_bottom = 270.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1531,8 +1531,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ItemList" type="ItemList" parent="MarginContainer/SidePanelControl/MarginContainer"]
-margin_right = 1460.0
-margin_bottom = 2430.0
+margin_right = 152.0
+margin_bottom = 270.0
 same_column_width = true
 
 [node name="PressStartContainer" type="CenterContainer" parent="."]
@@ -1566,16 +1566,16 @@ __meta__ = {
 margin_left = 6.0
 margin_top = 2.0
 margin_right = 648.0
-margin_bottom = 116.0
+margin_bottom = 115.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="LabelPlayerName" type="Label" parent="PlayerDataContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 17.0
 margin_right = 642.0
-margin_bottom = 55.0
+margin_bottom = 54.0
 text = "AAA"
 align = 3
 valign = 1
@@ -1585,9 +1585,9 @@ __meta__ = {
 
 [node name="LabelPlayerLives" type="Label" parent="PlayerDataContainer/VBoxContainer"]
 self_modulate = Color( 1, 0, 0, 1 )
-margin_top = 59.0
+margin_top = 58.0
 margin_right = 642.0
-margin_bottom = 96.0
+margin_bottom = 95.0
 text = "VIDAS: 0"
 align = 3
 valign = 1
@@ -1755,15 +1755,12 @@ margin_bottom = 10.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="LabelPlayerInfo" type="Label" parent="CanvasLayer/Control/CenterContainer"]
-margin_left = 947.0
-margin_top = 531.0
-margin_right = 973.0
-margin_bottom = 548.0
+margin_left = 922.0
+margin_top = 515.0
+margin_right = 998.0
+margin_bottom = 564.0
 rect_scale = Vector2( 2, 2 )
 custom_colors/font_color = Color( 0.968627, 1, 0, 1 )
 custom_fonts/font = ExtResource( 8 )
